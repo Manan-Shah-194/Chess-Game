@@ -34,13 +34,15 @@ io.on("connection", function(uniquesocket){
     {
         uniquesocket.emit("spectatorRole")
     }
-    // uniquesocket.on("message", function(){
-    //     io.emit("Sev Puri")
-    // })
-    // uniquesocket.on("disconnect", function() {
-    //     console.log("disconnected");
-        
-    // })
+    uniquesocket.on("disconnect", function(){
+        if(uniquesocket.id === players.white){
+            delete players.white
+        }
+        else if (uniquesocket.id === players.black){
+            delete players.black
+        }
+    });
+
 });
 
 server.listen(3000, function () {
