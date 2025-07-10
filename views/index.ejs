@@ -3,10 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/chess.css">
 </head>
-<body>
-    <h1>Index Page</h1>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">♚ Chess Game ♛</h1>
+            <div id="gameStatus" class="text-lg text-gray-300">Connecting...</div>
+            <div id="playerRole" class="text-sm text-gray-400 mt-2"></div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+            <!-- Chess Board Container -->
+            <div class="relative">
+                <!-- Black Player Info with Timer -->
+                <div id="blackPlayerInfo" class="mb-4 p-3 bg-gray-800 rounded-lg text-center">
+                    <div class="text-white font-semibold">Black Player</div>
+                    <div class="text-gray-400 text-sm" id="blackStatus">Waiting...</div>
+                    <div class="text-xl font-mono text-white mt-2" id="blackTimer">5:00</div>
+                </div>
+
+                <!-- Chess Board -->
+                <div class="chess-board-container">
+                    <div id="chessboard" class="chessboard"></div>
+                </div>
+
+                <!-- White Player Info with Timer -->
+                <div id="whitePlayerInfo" class="mt-4 p-3 bg-gray-100 rounded-lg text-center">
+                    <div class="text-gray-800 font-semibold">White Player</div>
+                    <div class="text-gray-600 text-sm" id="whiteStatus">Waiting...</div>
+                    <!-- ✅ Updated here: changed from text-gray-800 to force dark text -->
+                    <div class="text-xl font-mono text-gray-800 mt-2" id="whiteTimer">5:00</div>
+                </div>
+            </div>
+
+            <!-- Game Info Panel -->
+            <div class="bg-gray-800 rounded-lg p-6 w-full max-w-sm">
+                <h3 class="text-xl font-bold text-white mb-4">Game Info</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Turn:</span>
+                        <span id="currentTurn" class="text-white font-semibold">White</span>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Status:</span>
+                        <span id="gameStatusDetail" class="text-white">In Progress</span>
+                    </div>
+                </div>
+
+                <!-- Move History -->
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-white mb-2">Move History</h4>
+                    <div id="moveHistory" class="bg-gray-700 rounded p-3 h-32 overflow-y-auto text-sm text-gray-300">
+                        Game started...
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="mt-6 space-y-2">
+                    <button id="resetGame" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition-colors">
+                        Reset Game
+                    </button>
+                </div>
+
+                <!-- Timer Info -->
+                <div class="mt-6 p-3 bg-gray-700 rounded">
+                    <h4 class="text-sm font-semibold text-white mb-2">Timer Rules</h4>
+                    <p class="text-xs text-gray-300">Each player has 5 minutes. Timer switches on each move. Game ends when time runs out!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chessgame.js"></script>
